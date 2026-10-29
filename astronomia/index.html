@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AstroEstudiantes - Investiga el Universo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">🚀</span>
+        <span class="logo-text">Astro<span class="accent">Estudiantes</span></span>
+      </div>
+      <p class="tagline">Investiga eventos astronómicos adaptados a tu edad y conocimiento</p>
+    </div>
+  </header>
+
+  <!-- Perfil del estudiante -->
+  <section class="container profile-card" id="profile-card">
+    <div class="card-header">
+      <h2>⚙️ Tu perfil de estudiante</h2>
+    </div>
+    <p class="card-subtitle">Esto nos ayuda a explicarte los eventos con palabras que entiendas.</p>
+    <div class="profile-grid">
+      <div class="form-group">
+        <label for="edad">Tu edad</label>
+        <select id="edad">
+          <option value="6-9">6 a 9 años</option>
+          <option value="10-13">10 a 13 años</option>
+          <option value="14-17">14 a 17 años</option>
+          <option value="18+">18 años o más</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="nivel">¿Qué tanto sabes de astronomía?</label>
+        <select id="nivel">
+          <option value="principiante">Nada (estoy empezando)</option>
+          <option value="intermedio">Sé algo (nivel intermedio)</option>
+          <option value="avanzado">Sé mucho (nivel avanzado)</option>
+        </select>
+      </div>
+    </div>
+    <button id="guardar-perfil" class="btn btn-primary">Guardar perfil</button>
+    <div id="perfil-guardado" class="success-msg" style="display:none;">✅ Perfil guardado. ¡Listo para investigar!</div>
+  </section>
+
+  <!-- Buscador por fecha -->
+  <section class="container search-card">
+    <div class="card-header">
+      <h2>📅 Busca un evento astronómico por fecha</h2>
+    </div>
+    <div class="search-grid">
+      <div class="form-group">
+        <label for="fecha">Elige una fecha</label>
+        <input type="date" id="fecha" />
+      </div>
+      <button id="btn-buscar" class="btn btn-primary">Buscar evento</button>
+      <button id="btn-azar" class="btn btn-azar">🎲 Fecha al azar</button>
+    </div>
+    <div id="fecha-info" class="hint"></div>
+  </section>
+
+  <!-- Presentación tipo PPT -->
+  <section class="container presentation-card" id="presentation-card" style="display:none;">
+    <div class="ppt-header">
+      <div class="slide-badge">
+        <span id="ppt-contador">Diapositiva 1 de 7</span>
+      </div>
+      <div class="slide-title-area">
+        <h2 id="ppt-titulo-slide">Evento astronómico</h2>
+        <span id="ppt-fecha-slide" class="slide-fecha"></span>
+      </div>
+    </div>
+
+    <div class="ppt-controls-top">
+      <button id="btn-ppt-anterior" class="btn btn-outline">← Anterior</button>
+      <button id="btn-ppt-siguiente" class="btn btn-primary">Siguiente →</button>
+    </div>
+
+    <div class="ppt-stage">
+      <!-- Diapositiva 1: Portada con imagen -->
+      <div class="ppt-slide active" id="slide-1">
+        <div class="slide-cover">
+          <div class="slide-kicker">NASA • APOD</div>
+          <h1 id="ppt-titulo"></h1>
+          <div class="slide-imagen-wrapper" id="ppt-imagen-wrapper"></div>
+          <p class="slide-credito" id="ppt-credito"></p>
+          <p class="slide-fecha-evento" id="ppt-fecha-evento"></p>
+        </div>
+      </div>
+
+      <!-- Diapositiva 2: ¿Qué es? -->
+      <div class="ppt-slide" id="slide-2">
+        <div class="slide-text">
+          <div class="slide-kicker">Sección 1</div>
+          <h2>🌌 ¿Qué es este evento?</h2>
+          <div class="texto-cuerpo" id="ppt-descripcion"></div>
+        </div>
+      </div>
+
+      <!-- Diapositiva 3: ¿Cómo funciona? -->
+      <div class="ppt-slide" id="slide-3">
+        <div class="slide-text">
+          <div class="slide-kicker">Sección 2</div>
+          <h2>⚙️ ¿Cómo funciona?</h2>
+          <div class="texto-cuerpo" id="ppt-como-funciona"></div>
+        </div>
+      </div>
+
+      <!-- Diapositiva 4: Frecuencia -->
+      <div class="ppt-slide" id="slide-4">
+        <div class="slide-text">
+          <div class="slide-kicker">Sección 3</div>
+          <h2>🔁 ¿Cuántas veces ha pasado?</h2>
+          <div class="texto-cuerpo" id="ppt-frecuencia"></div>
+        </div>
+      </div>
+
+      <!-- Diapositiva 5: Involucrados -->
+      <div class="ppt-slide" id="slide-5">
+        <div class="slide-text">
+          <div class="slide-kicker">Sección 4</div>
+          <h2>👥 ¿Quiénes participan?</h2>
+          <div class="texto-cuerpo" id="ppt-involucrados"></div>
+        </div>
+      </div>
+
+      <!-- Diapositiva 6: Dato curioso -->
+      <div class="ppt-slide" id="slide-6">
+        <div class="slide-fact">
+          <div class="slide-kicker">Dato extra</div>
+          <h2>💡 Dato curioso</h2>
+          <div class="fact-box">
+            <p id="ppt-curiosidad"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diapositiva 7: Resumen -->
+      <div class="ppt-slide" id="slide-7">
+        <div class="slide-summary">
+          <div class="slide-kicker">Resumen</div>
+          <h2>📋 Resumen del evento</h2>
+          <div class="resumen-grid">
+            <div class="resumen-item">
+              <span class="resumen-label">Evento</span>
+              <span id="resumen-titulo"></span>
+            </div>
+            <div class="resumen-item">
+              <span class="resumen-label">Fecha</span>
+              <span id="resumen-fecha"></span>
+            </div>
+            <div class="resumen-item">
+              <span class="resumen-label">Fuente</span>
+              <span id="resumen-fuente"></span>
+            </div>
+            <div class="resumen-item">
+              <span class="resumen-label">Tu nivel</span>
+              <span id="resumen-nivel"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ppt-actions-bottom">
+      <button id="btn-ppt-quiz" class="btn btn-quiz">❓ Ir al quiz</button>
+      <button id="btn-ppt-cerrar" class="btn btn-outline">Cerrar presentación</button>
+    </div>
+  </section>
+
+  <!-- Quiz interactivo -->
+  <section class="container quiz-card" id="quiz-card" style="display:none;">
+    <div class="card-header">
+      <h2>🧠 Pon a prueba lo que aprendiste</h2>
+    </div>
+    <div id="quiz-progreso" class="progreso">Pregunta <span id="q-actual">1</span> de <span id="q-total">3</span></div>
+    <div id="quiz-pregunta" class="quiz-pregunta"></div>
+    <div id="quiz-opciones" class="quiz-opciones"></div>
+    <div id="quiz-retroalimentacion" class="retroalimentacion"></div>
+    <div id="quiz-acciones" class="quiz-acciones" style="margin-top:1.5rem;">
+      <button id="btn-siguiente" class="btn btn-primary" style="display:none;">Siguiente pregunta</button>
+      <button id="btn-cerrar-quiz" class="btn btn-outline">Volver a la presentación</button>
+    </div>
+    <div id="quiz-resultado" class="quiz-resultado" style="display:none;"></div>
+  </section>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>Datos proporcionados por la NASA (APOD - Astronomy Picture of the Day). Creado para estudiantes curiosos.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
